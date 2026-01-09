@@ -1,0 +1,207 @@
+*{
+    padding:0;
+    margin:0;
+    box-sizing: border-box;
+    font-family: regular;
+}
+:root{
+    --x: black;
+    --y: white;
+    --z: red;
+}
+@font-face {
+    font-family: bold;
+    src: url(./AeonikTRIAL-Bold.otf);
+}
+@font-face {
+    font-family: light;
+    src: url(./AeonikTRIAL-Light.otf);
+}
+@font-face {
+    font-family: regular;
+    src: url(./AeonikTRIAL-Regular.otf);
+}
+html,body{
+    height:100%;
+    width:100%;
+}
+body{
+    background-color: var(--x);
+    anchor-name: --fullwin;
+}
+nav{
+    background-color: var(--y);
+    width:100%;
+    height:10%;
+}
+section.elements{
+    height:40%;
+    width:100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap:30px;
+    position: absolute;
+    z-index:10;
+}
+.element{
+    border-radius: 15px;
+    overflow: hidden;
+    height: 300px;
+    width:250px;
+    position: relative;
+    transition:all .2s linear;
+    
+}
+.to-do{
+    anchor-name: --animate;
+}
+.daily-planer{
+    anchor-name: --dailyplan
+}
+.motivation{
+    anchor-name: --motivate
+}
+.pomodoro{
+    anchor-name: --pomodo;
+}
+.daily-goals{
+    anchor-name: --dailygo;
+}
+.element img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    pointer-events: none;
+}
+.element h2{
+    position: absolute;
+    bottom:4%;
+    right:3%;
+    color: var(--y);
+    font-family: bold;
+    font-size: 1.5rem;
+}
+.element:active{
+    scale:0.94;
+}
+.fullelems{
+    background-color: var(--y);
+    border-radius: 15px;
+    position: absolute;
+    top: anchor(top);
+    left: anchor(left);
+    bottom: anchor(bottom);
+    right: anchor(right);
+    transition: all .15s ease-in;
+    z-index: 7;
+
+}
+.fullelems .backbtn{
+    height:3rem;
+    width:7rem;
+    background-color: var(--z);
+    border:2px solid var(--x);
+    border-radius: 2rem;
+    position: absolute;
+    right:4%;
+    top:5%;
+    cursor: pointer;
+}
+.to{
+    scale: 0.2;
+    position: absolute;
+    position-anchor: --animate;
+    background-color: var(--x);
+    color: var(--y);
+    padding: 2.5rem;
+}
+.to h2{
+    font-family: bold;
+    font-size: 2.7rem;
+    flex:1;
+}
+.dailyp{
+    position: absolute;
+    position-anchor: --dailyplan;
+}
+.moti{
+    position: absolute;
+    position-anchor: --motivate;
+}
+.pomo{
+    position: absolute;
+    position-anchor: --pomodo;
+}
+.daily{
+    position: absolute;
+    position-anchor: --dailygo;
+}
+.dashboard{
+    height:94%;
+    width:100%;
+    display: flex;
+    padding-top: 2rem;
+    gap:2rem;
+}
+.task-add{
+    height: 100%;
+    width:35%;
+    display:flex;
+    flex-direction: column;
+    background-color: aliceblue;
+    padding: 2rem;
+    border-radius: 1rem;
+}
+.alltasks{
+    height:100%;
+    width: 62%;
+    background-color: var(--y);
+    border-radius: 1rem;
+    color: var(--x);
+    padding: 1.5rem;
+    background-color: aliceblue;
+}
+.task{
+    height: 3rem;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    background-color: aqua;
+    padding: 0.5rem;
+    border-radius: 1rem;
+}
+.alltasks button{
+    height:2rem;
+    width:5rem;
+    border: 1px solid black;
+    border-radius:1rem ;
+}
+.task-add input{
+    height:4rem;
+    width:100%;
+    margin-bottom: 1rem;
+    text-align: left;
+    padding: 1rem;
+    border-radius: 1rem;
+    border: none;
+}
+.task-add button{
+    height:2rem;
+    width:100%;
+    border-radius: 1rem;
+    border: none;
+    background-color: rgb(134, 133, 133);
+}
+.task-add textarea{
+    height:30rem;
+    width: 100%;
+    margin-bottom: 0.7rem;
+    padding: 1rem;
+    border-radius: 1rem;
+    border: none;
+}
+.tasks{
+    height: 30rem;
+    width:30rem;
+    
+}
