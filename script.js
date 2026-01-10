@@ -67,7 +67,7 @@ function managetasks() {
                 let sum = '';
                 todos.forEach((ele, idx) => {
                         sum += `<div class="task">
-                <h4>${idx+1}. ${ele.name} ${ele.important?`<span class="implogo">IMP</span><span>`:""}${ele.detail? `<details>${ele.detail}</details>`:""}</span></h4>
+                <h4>${idx+1}. ${ele.name} ${ele.important?`<span class="implogo">IMP</span><span>`:""}${ele.detail? `<details><summary>See Details</summary>${ele.detail}</details>`:""}</span></h4>
                 <button id=${idx}>Mark as done</button>
                 </div>`;
                 })

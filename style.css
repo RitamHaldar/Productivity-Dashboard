@@ -176,6 +176,10 @@ section.elements{
     color: var(--x);
     padding: 1.5rem;
     background-color: rgba(247, 247, 247);
+    overflow-y: auto;
+}
+.alltasks::-webkit-scrollbar{
+    display: none;
 }
 .task{
     min-height: 3rem;
@@ -241,7 +245,7 @@ section.elements{
 }
 .task-add .importance{
     display: flex;
-    height: 1.1rem;
+    height: 1.15rem;
     overflow: hidden;
     padding: 0 0.8rem;
 }
