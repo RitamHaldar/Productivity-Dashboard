@@ -49,8 +49,7 @@ section.elements{
     height: 300px;
     width:250px;
     position: relative;
-    transition:all .2s linear;
-    
+    transition:all .2s linear;  
 }
 .to-do{
     anchor-name: --animate;
@@ -92,9 +91,11 @@ section.elements{
     left: anchor(left);
     bottom: anchor(bottom);
     right: anchor(right);
-    transition: all .15s ease-in;
+    transition: all .09s ease-in;
     z-index: 7;
-
+    background-color: var(--x);
+    color: var(--y);
+    padding: 2.5rem;
 }
 .fullelems .backbtn{
     height:3rem;
@@ -107,13 +108,14 @@ section.elements{
     top:5%;
     cursor: pointer;
 }
+.fullelems .backbtn:active{
+    scale: 0.94;
+}
 .to{
     scale: 0.2;
     position: absolute;
     position-anchor: --animate;
-    background-color: var(--x);
-    color: var(--y);
-    padding: 2.5rem;
+    
 }
 .to h2{
     font-family: bold;
@@ -121,18 +123,27 @@ section.elements{
     flex:1;
 }
 .dailyp{
+    scale:0.2;
     position: absolute;
     position-anchor: --dailyplan;
 }
+.dailyp h2{
+    font-family: bold;
+    font-size: 2.7rem;
+    flex:1;
+}
 .moti{
+    scale: 0.2;
     position: absolute;
     position-anchor: --motivate;
 }
 .pomo{
+    scale: 0.2;
     position: absolute;
     position-anchor: --pomodo;
 }
 .daily{
+    scale: 0.2;
     position: absolute;
     position-anchor: --dailygo;
 }
@@ -148,9 +159,14 @@ section.elements{
     width:35%;
     display:flex;
     flex-direction: column;
-    background-color: aliceblue;
+    background-color: rgb(60, 60, 60);
     padding: 2rem;
     border-radius: 1rem;
+    
+}
+.task-add:hover{
+    box-shadow: 0 0 40px var(--y);
+    scale: 0.99;
 }
 .alltasks{
     height:100%;
@@ -159,22 +175,48 @@ section.elements{
     border-radius: 1rem;
     color: var(--x);
     padding: 1.5rem;
-    background-color: aliceblue;
+    background-color: rgba(247, 247, 247);
 }
 .task{
-    height: 3rem;
+    min-height: 3rem;
     display: flex;
     justify-content: space-between;
     margin-bottom: 0.5rem;
-    background-color: aqua;
-    padding: 0.5rem;
+    box-shadow: 0 0 15px var(--x);
+    padding: 0.5rem 1rem;
     border-radius: 1rem;
 }
+.task h4 .implogo{
+    background-color: rgb(187, 192, 255);
+    position: absolute;
+    right:-2.9rem;
+    top:-0.7rem;
+    height: 1.5rem;
+    width: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 2rem;
+}
 .alltasks button{
+    margin-top: 0.3rem;
     height:2rem;
     width:5rem;
-    border: 1px solid black;
+    border: 1px solid var(--x);
     border-radius:1rem ;
+    background-color: rgb(181, 220, 255,0.5);
+    cursor: pointer;
+}
+.alltasks h4{
+    margin-top: 5px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+}
+.alltasks h4 span{
+    margin-top: 0.3rem;
+    font-size: small;
 }
 .task-add input{
     height:4rem;
@@ -186,14 +228,33 @@ section.elements{
     border: none;
 }
 .task-add button{
+    margin-top: 0.2rem;
     height:2rem;
     width:100%;
     border-radius: 1rem;
     border: none;
     background-color: rgb(134, 133, 133);
+    cursor: pointer;
+}
+.task-add button:active{
+    scale:0.96;
+}
+.task-add .importance{
+    display: flex;
+    height: 1.1rem;
+    overflow: hidden;
+    padding: 0 0.8rem;
+}
+.importance #imp{
+    height: fit-content;
+    width: fit-content;
+}
+.importance label{
+    font-size: .8rem;
+    margin-left: 0.7rem;
 }
 .task-add textarea{
-    height:30rem;
+    height:28.6rem;
     width: 100%;
     margin-bottom: 0.7rem;
     padding: 1rem;
@@ -204,4 +265,35 @@ section.elements{
     height: 30rem;
     width:30rem;
     
+}
+.dailyp .dailytasks{
+    margin-top: 2rem;
+    padding: 2rem;
+    padding-left: 3rem;
+    height:90%;
+    width:98.3%;
+    background-color: var(--y);
+    color: var(--x);
+    display: flex;
+    flex-wrap: wrap;
+    overflow: auto;
+    border-radius: 20px;
+    justify-content: space-between;
+}
+.dailyp .dailytasks::-webkit-scrollbar{
+    display: none;
+}
+.dailytasks .dailytask{
+    width: 50%;
+    height: 11%;
+}
+.dailytasks .dailytask input{
+    width: 96%;
+    height: 68%;
+    padding: 1rem;
+}
+.dailytasks .dailytask h4{
+    font-family: bold;
+    color: var(--x);
+    font-size: 1.2rem;
 }

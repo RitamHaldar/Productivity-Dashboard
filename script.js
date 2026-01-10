@@ -58,32 +58,68 @@ function managetasks() {
         const taskinput = document.querySelector(".task-add form input");
         const tasktext = document.querySelector(".task-add form textarea");
         const alltask = document.querySelector(".alltasks");
+        const impbtn= document.querySelector(".task-add form #imp")
         let todos = [];
-        function addtasks() {
+        if(localStorage.getItem("alltasks")){
+                todos=JSON.parse(localStorage.getItem("alltasks"))
+        }
+        function rendertasks() {
                 let sum = '';
                 todos.forEach((ele, idx) => {
                         sum += `<div class="task">
-                <h4>${ele}</h4>
-                <button id=${idx}>Task done</button>
+                <h4>${idx+1}. ${ele.name} ${ele.important?`<span class="implogo">IMP</span><span>`:""}${ele.detail? `<details>${ele.detail}</details>`:""}</span></h4>
+                <button id=${idx}>Mark as done</button>
                 </div>`;
                 })
                 alltask.innerHTML = sum;
+                localStorage.setItem("alltasks", JSON.stringify(todos))
+                document.querySelectorAll(".alltasks button").forEach((btn) => {
+                        btn.addEventListener("click", (e) => {
+                                todos.splice(e.target.id, 1);
+                                rendertasks();
+                        })
+                });
         }
-        alltask.addEventListener("click", (e) => {
-                if (e.target.tagName === "BUTTON") {
-                        todos.splice(e.target.dataset.id, 1);
-                        addtasks();
-                }
-        });
+        rendertasks();
         taskform.addEventListener("submit", (e) => {
                 e.preventDefault();
                 if (taskinput.value != "") {
-                        todos.push(taskinput.value);
+                        todos.push({
+                                name:taskinput.value,
+                                detail:tasktext.value,
+                                important:impbtn.checked
+                        });
                 }
                 taskinput.value = "";
                 tasktext.value = "";
-                addtasks();
+                impbtn.checked = false
+                rendertasks();
+        })
+}
+function dailytasks() {
+        const dailytask = document.querySelector(".dailytasks");
+        let tasksdetals = JSON.parse(localStorage.getItem("dailyplaner")) || {};
+        let taskarray = Array.from({ length: 18 }, (_, idx) => {
+                return `${6 + idx}:00 - ${7 + idx}:00`;
+        })
+        let total = "";
+        taskarray.forEach((ele, idx) => {
+                total += `<div class="dailytask">
+                <h4>${ele}</h4>
+                <input type="text" id=${idx}>
+            </div>`
+        })
+        dailytask.innerHTML = total;
+        let settasks = document.querySelectorAll(".dailytask input");
+        settasks.forEach((ele, idx) => {
+                ele.addEventListener("input", (e) => {
+                        tasksdetals[e.target.id] = e.target.value;
+                        localStorage.setItem("dailyplaner", JSON.stringify(tasksdetals));
+
+                })
+                ele.value = tasksdetals[idx] ? tasksdetals[idx] : "";
         })
 }
 managetasks();
 loadelems();
+dailytasks();
