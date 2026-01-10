@@ -8,6 +8,7 @@
     --x: black;
     --y: white;
     --z: red;
+    --t: rgb(41, 40, 40);
 }
 @font-face {
     font-family: bold;
@@ -21,6 +22,19 @@
     font-family: regular;
     src: url(./AeonikTRIAL-Regular.otf);
 }
+@property --borderanimate{
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+@keyframes borderanimation{
+    from{
+        --borderanimate:0deg;
+    }
+    to{
+        --borderanimate:360deg;
+    }
+}
 html,body{
     height:100%;
     width:100%;
@@ -32,24 +46,68 @@ body{
 nav{
     background-color: var(--y);
     width:100%;
-    height:10%;
+    padding: 1rem 4rem;
+    display: flex;
+    justify-content: right;
+    position: fixed;
+    z-index: 11;
+    background-color: var(--t);
+    color: var(--y);
+    gap:25rem;
+    font-family: bold;
+    box-shadow: 0 0 20px var(--y),
+    inset 0 0 8px var(--y)
+    ;
+    border-radius: 2rem;
+    border: none;
+}
+nav h1{
+    font-size: 1.7rem;
+}
+nav button{
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 2rem;
+    border:none;
+    background-color: var(--t);
+    color: var(--y);
+    transition: all 0.1s linear;
+    cursor: pointer;
+}
+nav button:hover{
+    scale: 0.97;
+    box-shadow: 0 0 20px var(--y);
+}
+nav button:active{
+    scale:0.93;
+    box-shadow: 0 0 30px var(--y);
 }
 section.elements{
     height:40%;
     width:100%;
     display: flex;
     flex-wrap: wrap;
-    gap:30px;
     position: absolute;
     z-index:10;
 }
 .element{
     border-radius: 15px;
     overflow: hidden;
-    height: 300px;
-    width:250px;
+    height: 23rem;
+    width:16.84rem;
     position: relative;
-    transition:all .2s linear;  
+    transition:all 0.3s linear;  
+    object-position: center;
+    margin-left: 2rem;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+.element:hover{
+    scale:0.93;
+    box-shadow: 0 0 30px var(--y);
+}
+.element:active{
+    scale:0.87;
 }
 .to-do{
     anchor-name: --animate;
@@ -91,11 +149,17 @@ section.elements{
     left: anchor(left);
     bottom: anchor(bottom);
     right: anchor(right);
-    transition: all .09s ease-in;
+    transition: all .12s ease-in;
     z-index: 7;
     background-color: var(--x);
     color: var(--y);
     padding: 2.5rem;
+}
+.fullelems h2{
+    margin-top: 2rem;
+    font-family: bold;
+    font-size: 2.7rem;
+    flex:1;
 }
 .fullelems .backbtn{
     height:3rem;
@@ -105,45 +169,69 @@ section.elements{
     border-radius: 2rem;
     position: absolute;
     right:4%;
-    top:5%;
+    top:9.5%;
     cursor: pointer;
 }
 .fullelems .backbtn:active{
     scale: 0.94;
 }
+.weather{
+    height:21rem;
+    width:100%;
+    position: relative;
+    top:4rem;
+    margin: 2rem;
+    margin-bottom: 5rem;
+    border-radius: 2rem;
+    border:none;
+    padding: 3px;
+    display: flex;
+    overflow: hidden;
+    transition:all 0.3s linear;
+
+}
+.weather img{
+    margin: 0.8px;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+    border:none;
+    border-radius: 1.7rem;
+}
+.weather:hover{
+    background: linear-gradient(var(--x)) content-box,
+    conic-gradient(from var(--borderanimate), transparent,transparent,transparent,
+    transparent,transparent,transparent,transparent,transparent,
+    transparent,transparent,transparent,transparent,transparent,transparent,transparent,
+    transparent,transparent,transparent,var(--y),transparent,transparent) padding-box;
+    animation: borderanimation 5s;
+    animation-iteration-count: infinite;
+    box-shadow: 0 0 20px var(--y);
+    scale: .993;
+}
 .to{
-    scale: 0.2;
+    scale: 0;
     position: absolute;
     position-anchor: --animate;
     
 }
-.to h2{
-    font-family: bold;
-    font-size: 2.7rem;
-    flex:1;
-}
 .dailyp{
-    scale:0.2;
+    scale:0;
     position: absolute;
     position-anchor: --dailyplan;
 }
-.dailyp h2{
-    font-family: bold;
-    font-size: 2.7rem;
-    flex:1;
-}
 .moti{
-    scale: 0.2;
+    scale: 0;
     position: absolute;
     position-anchor: --motivate;
 }
 .pomo{
-    scale: 0.2;
+    scale: 0;
     position: absolute;
     position-anchor: --pomodo;
 }
 .daily{
-    scale: 0.2;
+    scale: 0;
     position: absolute;
     position-anchor: --dailygo;
 }
@@ -155,13 +243,14 @@ section.elements{
     gap:2rem;
 }
 .task-add{
-    height: 100%;
+    height: 98%;
     width:35%;
     display:flex;
     flex-direction: column;
     background-color: rgb(60, 60, 60);
     padding: 2rem;
     border-radius: 1rem;
+    transition: all 0.25s linear;
     
 }
 .task-add:hover{
@@ -169,7 +258,7 @@ section.elements{
     scale: 0.99;
 }
 .alltasks{
-    height:100%;
+    height:98%;
     width: 62%;
     background-color: var(--y);
     border-radius: 1rem;
@@ -177,6 +266,8 @@ section.elements{
     padding: 1.5rem;
     background-color: rgba(247, 247, 247);
     overflow-y: auto;
+    box-shadow: 0 0 2rem var(--y);
+    border: 2px solid var(--x);
 }
 .alltasks::-webkit-scrollbar{
     display: none;
@@ -258,7 +349,7 @@ section.elements{
     margin-left: 0.7rem;
 }
 .task-add textarea{
-    height:28.6rem;
+    height:27.6rem;
     width: 100%;
     margin-bottom: 0.7rem;
     padding: 1rem;
@@ -274,7 +365,7 @@ section.elements{
     margin-top: 2rem;
     padding: 2rem;
     padding-left: 3rem;
-    height:90%;
+    height:87%;
     width:98.3%;
     background-color: var(--y);
     color: var(--x);
@@ -283,6 +374,8 @@ section.elements{
     overflow: auto;
     border-radius: 20px;
     justify-content: space-between;
+    box-shadow: 0 0 2rem var(--y);
+    border:1px solid var(--x)
 }
 .dailyp .dailytasks::-webkit-scrollbar{
     display: none;
@@ -300,4 +393,121 @@ section.elements{
     font-family: bold;
     color: var(--x);
     font-size: 1.2rem;
+}
+.motivationwindow{
+    height: 70%;
+    width: 50%;
+    margin: auto;
+    margin-top: 5rem;
+    background-color: var(--x);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-shadow: 1rem 1rem 30rem var(--y),
+    -1rem -1rem 30rem var(--y),
+    inset 0 0 2rem var(--y);
+    border-radius: 20px;
+}
+
+.motivationwindow button{
+    height:13%;
+    width:35%;
+    font-size: 1.8rem;
+    font-family: bold;
+    margin: 1rem;
+    border-radius: 20px;
+    border:none;
+    color: var(--x);
+    background-color: var(--y);
+    transition: all 0.2s linear;
+}
+.motivationwindow button:hover{
+    scale: 0.97;
+    box-shadow: 0 0 20px var(--y);
+    cursor: pointer;
+}
+.motivationwindow button:active{
+    scale:0.9;
+    background-color: var(--x);
+    color: var(--y);
+}
+.motivationwindow h1{
+    padding: 0 1rem;
+    display: flex;
+    margin-top: 2rem;
+    margin-left: 1rem;
+    text-align: center;
+    width: 90%;
+    height: 63%;
+    text-transform: uppercase;
+    font-family: bold;
+}
+.motivationwindow h3{
+    height:3rem;
+    width: fit-content;
+    padding: 0 2rem;
+    font-family: bold;
+    font-size: 1.5rem;
+    position: absolute;
+    bottom: 1.5rem;
+    right: 2.5rem;
+    background-color: var(--y);
+    color: var(--x);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-transform: uppercase;
+}
+.motivationwindow i{
+    position: absolute;
+    top:1.3rem;
+    right:3rem;
+    font-size: 5rem;
+    color: var(--y);
+}
+.pomo .pomodorotimer{
+    height:55%;
+    width:50%;
+    margin: auto;
+    margin-top: 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s linear; 
+    border-radius: 2rem;
+}
+.pomo .pomodorotimer:hover{
+    box-shadow: 0 0 50px var(--y);
+}
+.pomodorotimer h1{
+    font-family: bold;
+    font-size: 5rem;
+}
+.pomodorotimer .timer{
+    margin-top: 2.5rem;
+    display: flex;
+    width:30rem;
+    justify-content: space-between;
+}
+.pomodorotimer .timer button{
+    height: 3rem;
+    width: 7rem;
+    font-family: bold;
+    font-size: 1.5rem;
+    border-radius: 2rem;
+    border: none;
+    background-color: var(--x);
+    color: var(--y);
+    text-transform: uppercase;
+    transition: all 0.14s linear;
+}
+.pomodorotimer .timer button:hover{
+    box-shadow: 0 0 30px var(--y),
+    inset 0 0 10px var(--y);
+}
+.pomodorotimer .timer button:active{
+    box-shadow: 0 0 50px var(--y);
+    scale: 0.95;
 }

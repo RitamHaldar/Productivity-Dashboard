@@ -16,7 +16,7 @@ function loadelems() {
                 fullelemnts[e.target.id].style.positionAnchor = "--animate";
                 fullelemnts[e.target.id].style.borderRadius = "15px";
                 fullelemnts[e.target.id].style.zIndex = "7";
-                fullelemnts[e.target.id].style.scale = "0.2";
+                fullelemnts[e.target.id].style.scale = "0";
                 elem.style.zIndex = "10";
 
         });
@@ -25,7 +25,7 @@ function loadelems() {
                 fullelemnts[e.target.id].style.positionAnchor = "--dailyplan";
                 fullelemnts[e.target.id].style.borderRadius = "15px";
                 fullelemnts[e.target.id].style.zIndex = "7";
-                fullelemnts[e.target.id].style.scale = "0.2";
+                fullelemnts[e.target.id].style.scale = "0";
                 elem.style.zIndex = "10";
         });
         const moti = document.querySelector(".moti button");
@@ -33,7 +33,7 @@ function loadelems() {
                 fullelemnts[e.target.id].style.positionAnchor = "--motivate";
                 fullelemnts[e.target.id].style.borderRadius = "15px";
                 fullelemnts[e.target.id].style.zIndex = "7";
-                fullelemnts[e.target.id].style.scale = "0.2";
+                fullelemnts[e.target.id].style.scale = "0";
                 elem.style.zIndex = "10";
         });
         const pomo = document.querySelector(".pomo button");
@@ -41,7 +41,7 @@ function loadelems() {
                 fullelemnts[e.target.id].style.positionAnchor = "--pomodo";
                 fullelemnts[e.target.id].style.borderRadius = "15px";
                 fullelemnts[e.target.id].style.zIndex = "7";
-                fullelemnts[e.target.id].style.scale = "0.2";
+                fullelemnts[e.target.id].style.scale = "0";
                 elem.style.zIndex = "10";
         });
         const daily = document.querySelector(".daily button");
@@ -49,7 +49,7 @@ function loadelems() {
                 fullelemnts[e.target.id].style.positionAnchor = "--dailygo";
                 fullelemnts[e.target.id].style.borderRadius = "15px";
                 fullelemnts[e.target.id].style.zIndex = "7";
-                fullelemnts[e.target.id].style.scale = "0.2";
+                fullelemnts[e.target.id].style.scale = "0";
                 elem.style.zIndex = "10";
         });
 }
@@ -120,6 +120,93 @@ function dailytasks() {
                 ele.value = tasksdetals[idx] ? tasksdetals[idx] : "";
         })
 }
+function motivationquote() {
+        const motivationwinbtn = document.querySelector(".motivationwindow button");
+        const motivationcont = document.querySelector(".motivationwindow h1");
+        const motivationauthor = document.querySelector(".motivationwindow h3");
+        async function fetchQuote() {
+                let response = await fetch('https://quoteslate.vercel.app/api/quotes/random')
+                let data = await response.json();
+                motivationcont.innerHTML = data.quote
+                motivationauthor.innerHTML = "- " + data.author
+        }
+        fetchQuote();
+        motivationwinbtn.addEventListener("click", () => {
+                fetchQuote();
+        })
+}
+function pomodorotimer() {
+        const timer = document.querySelector(".pomodorotimer h1");
+        const start = document.querySelector(".pomodorotimer .timer .start");
+        const pause = document.querySelector(".pomodorotimer .timer .pause");
+        const reset = document.querySelector(".pomodorotimer .timer .reset");
+        let timeinterval = null;
+        let worksession = true;
+        let totaltime = 25 * 60;
+        function Settime() {
+                let minutes = Math.floor(totaltime / 60);
+                let seconds = totaltime % 60;
+                timer.innerHTML = `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
+        }
+        Settime();
+        function Starttimer() {
+                clearInterval(timeinterval);
+                start.style.pointerEvents = "none"
+                if (worksession) {
+                        timeinterval = setInterval(() => {
+                                if (totaltime > 0) {
+                                        totaltime--;
+                                        Settime();
+                                }
+                                else {
+                                        clearInterval(timeinterval);
+                                        start.style.pointerEvents = ""
+                                        worksession = false;
+                                        timer.innerHTML = "05:00"
+                                        totaltime = worksession ? 25 * 60 : 5 * 60;
+                                }
+
+                        }, 1)
+                }
+                else {
+                        timeinterval = setInterval(() => {
+                                if (totaltime > 0) {
+                                        totaltime--;
+                                        Settime();
+                                }
+                                else {
+                                        clearInterval(timeinterval);
+                                        start.style.pointerEvents = "";
+                                        timer.innerHTML = "25:00"
+                                        worksession = true;
+                                        totaltime = worksession ? 25 * 60 : 5 * 60;
+                                }
+
+                        }, 1)
+                }
+
+        }
+        function Pausetimer() {
+                clearInterval(timeinterval);
+                start.style.pointerEvents = "";
+        }
+        function Resettimer() {
+                clearInterval(timeinterval);
+                if (worksession) {
+                        totaltime = 25 * 60;
+                }
+                else {
+                        totaltime = 5 * 60;
+                }
+                start.style.pointerEvents = ""
+                Settime();
+        }
+        start.addEventListener("click", Starttimer);
+        pause.addEventListener("click", Pausetimer);
+        reset.addEventListener("click", Resettimer);
+}
 managetasks();
 loadelems();
 dailytasks();
+motivationquote();
+pomodorotimer();

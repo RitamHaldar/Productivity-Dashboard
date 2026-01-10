@@ -4,13 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Document</title>
 </head>
 <body>
     <nav>
-        This is nav Bar
+        <h1>PRODUCTIVITY DASHBOARD </h1>
+        <button>CHANGE THEME</button>
     </nav>
     <section class="elements">
+        <div class="weather"><img src="./images/pexels-pixabay-210012.jpg" alt=""></div>
         <div class="to-do element" id="0">
             <img src="./images/premium_photo-1710962184909-f9f8dc2c9f5f.avif" alt="">
             <h2>To Do List</h2>
@@ -52,21 +55,35 @@
         </div>
     </section>
     <section class="fullelems dailyp" id="1">
-        <h1>Daily Tasks Planner</h1>
+        <h2>Daily Tasks Planner</h2>
         <button class="backbtn" id="1">GO Back</button>
         <div class="dailytasks">
         </div>
     </section>
     <section class="fullelems moti" id="2">
-        <h1>Motivation</h1>
+        <h2>Motivation</h2>
         <button class="backbtn" id="2">GO Back</button>
+        <div class="motivationwindow">
+            <button>GET NEW QUOTE</button>
+            <h1></h1>
+            <h3></h3>
+            <i class="fa-solid fa-quote-right"></i>
+        </div>
     </section>
     <section class="fullelems pomo" id="3">
-        <h1>Pomodoro Timer</h1>
+        <h2>Pomodoro Timer</h2>
         <button class="backbtn" id="3">GO Back</button>
+        <div class="pomodorotimer">
+            <h1></h1>
+            <div class="timer">
+                <button class="start">start</button>
+                <button class="pause">pause</button>
+                <button class="reset">reset</button>
+            </div>
+        </div>
     </section>
     <section class="fullelems daily" id="4">
-        <h1>Daily Goals</h1>
+        <h2>Daily Goals</h2>
         <button class="backbtn" id="4">GO Back</button>
     </section>
     <script type="module" src="script.js"></script>
