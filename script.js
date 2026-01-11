@@ -1,3 +1,5 @@
+const city = prompt("Enter City Name");
+const cityname = city.split(" ").map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join("+");  
 function loadelems() {
         const elemnts = document.querySelectorAll(".element");
         const fullelemnts = document.querySelectorAll(".fullelems");
@@ -68,7 +70,7 @@ function managetasks() {
                 todos.forEach((ele, idx) => {
                         sum += `<div class="task">
                 <h4>${idx+1}. ${ele.name} ${ele.important?`<span class="implogo">IMP</span><span>`:""}${ele.detail? `<details><summary>See Details</summary>${ele.detail}</details>`:""}</span></h4>
-                <button id=${idx}>Mark as done</button>
+                <button id=${idx}><i class="fa-solid fa-check"></i></button>
                 </div>`;
                 })
                 alltask.innerHTML = sum;
@@ -205,8 +207,115 @@ function pomodorotimer() {
         pause.addEventListener("click", Pausetimer);
         reset.addEventListener("click", Resettimer);
 }
+function dailygoal() {
+        const goalform = document.querySelector(".goaldashboard .goal-add form")
+        const goalinput = document.querySelector(".goal-add form input");
+        const allgoal = document.querySelector(".allgoals");
+        let goals = [];
+        if (localStorage.getItem("allgoals")) {
+                goals = JSON.parse(localStorage.getItem("allgoals"))
+        }
+        function rendergoals() {
+                let sum = '';
+                goals.forEach((ele, idx) => {
+                        sum += `<div class="task">
+                <h4>${idx + 1}. ${ele.name}</h4>
+                <button id=${idx}><i class="fa-solid fa-check"></i></button>
+                </div>`;
+                })
+                allgoal.innerHTML = sum;
+                localStorage.setItem("allgoals", JSON.stringify(goals))
+                document.querySelectorAll(".allgoals button").forEach((btn) => {
+                        btn.addEventListener("click", (e) => {
+                                goals.splice(e.target.id, 1);
+                                rendergoals();
+                        })
+                });
+        }
+        rendergoals();
+        goalform.addEventListener("submit", (e) => {
+                e.preventDefault();
+                if (goalinput.value != "") {
+                        goals.push({
+                                name: goalinput.value,
+                        });
+                }
+                goalinput.value = "";
+                rendergoals();
+        })
+}
+function setdatetime() {
+        function setinfo(){
+             const m = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+        const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        let dateobj = new Date();
+        const setdate = document.querySelector(".detail h4");
+        const setday = document.querySelector(".detail h1");
+        const setplace = document.querySelector(".detail h3");
+        setdate.innerHTML = `${dateobj.getDate()} ${m[dateobj.getMonth()]} ${dateobj.getFullYear()}`
+        setday.innerHTML = `${days[dateobj.getDay()]}, ${String(dateobj.getHours() % 12).padStart(2, "0")}:${String(dateobj.getMinutes()).padStart(2, "0")}:${String(dateobj.getSeconds()).padStart(2, "0")} ${dateobj.getHours() > 12 ? "PM" : "AM"}`;
+        setplace.innerHTML=`${city.split(" ").map(word => word.charAt(0).toUpperCase()+word.slice(1).toLowerCase()) .join(" ")}`
+        }
+        setInterval(setinfo,1000);
+}
+function setclimate() {
+        const t = document.querySelector(".climate h1");
+        const w = document.querySelector(".climate h4");
+        const p = document.querySelector(".climate p");
+        async function gatedata() {
+                let info = await fetch(`https://wttr.in/${cityname}?format=j1`);
+                let data = await info.json();
+                const current = data.current_condition[0];
+                t.innerHTML = `${current.temp_C}°C`;
+                w.innerHTML = `${current.weatherDesc[0].value}`;
+                p.innerHTML = `Precipitation: ${current.precipMM} % <br>
+                        Humidity: ${current.humidity} % <br>
+                        Wind: ${current.windspeedKmph} km/h`
+        }
+        gatedata();
+}
 managetasks();
 loadelems();
 dailytasks();
 motivationquote();
 pomodorotimer();
+dailygoal();
+setdatetime();
+setclimate();
+
+const changetheme=document.querySelector("nav button");
+let darkmode=true;
+const wheatherimg=document.querySelector(".weather img")
+const todoimg=document.querySelector(".to-do img");
+const dailyplanerimg=document.querySelector(".daily-planer img");
+const motivationimg=document.querySelector(".motivation img");
+const timerimg=document.querySelector(".pomodoro img");
+const dailygoalsimg=document.querySelector(".daily-goals img");
+changetheme.innerHTML=`${darkmode? '<i class="fa-regular fa-moon"></i>':'<i class="fa-regular fa-sun"></i>'}`
+changetheme.addEventListener("click",()=>{
+        if (darkmode) {
+                document.body.style.setProperty("--x", "white");
+                document.body.style.setProperty("--y", "black");
+                darkmode=false;
+                changetheme.innerHTML=`${darkmode? '<i class="fa-regular fa-moon"></i>':'<i class="fa-regular fa-sun"></i>'}`
+                todoimg.src='./images/to-do2.jpg';
+                wheatherimg.src='./images/whether2.jpg';
+                dailyplanerimg.src='./images/dailyplaner1.jpg';
+                motivationimg.src='./images/motivation2.jpg';
+                timerimg.src='./images/timer2.jpg';
+                dailygoalsimg.src='./images/dailygoal1.jpg';
+
+        }
+        else{
+                document.body.style.setProperty("--y", "white");
+                document.body.style.setProperty("--x", "black");
+                darkmode=true;
+                changetheme.innerHTML=`${darkmode? '<i class="fa-regular fa-moon"></i>':'<i class="fa-regular fa-sun"></i>'}`;
+                todoimg.src='./images/to-do1.jpg';
+                wheatherimg.src='./images/whether1.jpg'
+                dailyplanerimg.src='./images/dailyplaner2.jpg';
+                motivationimg.src='./images/motivation1.jpg';
+                timerimg.src='./images/timer1.jpg';
+                dailygoalsimg.src='./images/dailygoal2.jpg';
+        }
+})

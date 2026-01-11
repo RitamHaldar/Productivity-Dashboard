@@ -1,37 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Productivity Dashboard</title>
 </head>
+
 <body>
     <nav>
         <h1>PRODUCTIVITY DASHBOARD </h1>
-        <button>CHANGE THEME</button>
+        <button></button>
     </nav>
     <section class="elements">
-        <div class="weather"><img src="./images/pexels-pixabay-210012.jpg" alt=""></div>
+        <div class="weather">
+            <img src="./images/whether1.jpg" alt="">
+            <div class="details">
+                <div class="detail">
+                    <h4>11 January 2026</h4>
+                    <h1>Sunday, 12:00:00 pm</h1>
+                    <h3>Kolkata</h3>
+                </div>
+                <div class="climate">
+                    <h1>20°C</h1>
+                    <h4>Light Rain</h4>
+                    <p>Precipitation: 0% <br>
+                        Humidity: 31% <br>
+                        Wind: 13 km/h
+                    </p>
+                </div>
+            </div>
+        </div>
         <div class="to-do element" id="0">
-            <img src="./images/premium_photo-1710962184909-f9f8dc2c9f5f.avif" alt="">
+            <img src="./images/to-do1.jpg" alt="">
             <h2>To Do List</h2>
         </div>
         <div class="daily-planer element" id="1">
-            <img src="./images/photo-1677249490921-3246e81f19e3.avif" alt="">
+            <img src="./images/dailyplaner2.jpg" alt="">
             <h2>Daily Planner</h2>
         </div>
         <div class="motivation element" id="2">
-            <img src="./images/photo-1678986718987-76f0b9357e0f.avif" alt="">
-            <h2>Motivation</h2>
+            <img src="./images/motivation1.jpg" alt="">
+            <h2>get Inspiration</h2>
         </div>
         <div class="pomodoro element" id="3">
-            <img src="./images/photo-1648457259767-e3a7fea65a99.avif" alt="">
+            <img src="./images/timer1.jpg" alt="">
             <h2>Pomodoro Timer</h2>
         </div>
         <div class="daily-goals element" id="4">
-            <img src="./images/photo-1718202248232-0cdbc15d29b2.avif" alt="">
+            <img src="./images/dailygoal2.jpg" alt="">
             <h2>Daily Goals</h2>
         </div>
     </section>
@@ -83,9 +104,20 @@
         </div>
     </section>
     <section class="fullelems daily" id="4">
-        <h2>Daily Goals</h2>
+        <h2>TODAY’S OBJECTIVES</h2>
         <button class="backbtn" id="4">GO Back</button>
+        <div class="goaldashboard">
+            <div class="goal-add">
+                <form>
+                    <input type="text" placeholder="Enter Goal">
+                    <button>Add Goal</button>
+                </form>
+            </div>
+            <div class="allgoals">
+            </div>
+        </div>
     </section>
     <script type="module" src="script.js"></script>
 </body>
+
 </html>
