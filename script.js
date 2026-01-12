@@ -140,6 +140,7 @@ function pomodorotimer() {
         const start = document.querySelector(".pomodorotimer .timer .start");
         const pause = document.querySelector(".pomodorotimer .timer .pause");
         const reset = document.querySelector(".pomodorotimer .timer .reset");
+        const session = document.querySelector(".pomodorotimer h3");
         let timeinterval = null;
         let worksession = true;
         let totaltime = 25 * 60;
@@ -164,9 +165,10 @@ function pomodorotimer() {
                                         worksession = false;
                                         timer.innerHTML = "05:00"
                                         totaltime = worksession ? 25 * 60 : 5 * 60;
+                                        session.innerHTML = `${worksession ? "Work Session" : "Break"}`;
                                 }
 
-                        }, 1)
+                        }, 1000)
                 }
                 else {
                         timeinterval = setInterval(() => {
@@ -180,9 +182,10 @@ function pomodorotimer() {
                                         timer.innerHTML = "25:00"
                                         worksession = true;
                                         totaltime = worksession ? 25 * 60 : 5 * 60;
+                                        session.innerHTML = `${worksession ? "Work Session" : "Break"}`;
                                 }
 
-                        }, 1)
+                        }, 1000)
                 }
 
         }

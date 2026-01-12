@@ -338,7 +338,7 @@ section.elements{
     width:35%;
     display:flex;
     flex-direction: column;
-    background-color: rgb(60, 60, 60);
+    background-color: var(--x);
     padding: 2rem;
     border-radius: 1rem;
     transition: all 0.25s linear;
@@ -346,7 +346,7 @@ section.elements{
 }
 .task-add:hover{
     box-shadow: 0 0 40px var(--y);
-    scale: 0.99;
+    scale: 1.01;
 }
 .alltasks{
     height:95.5%;
@@ -431,6 +431,7 @@ section.elements{
     border-radius: 1rem;
     border: none;
     overflow-y: auto;
+    border: 2px solid black;
 }
 .task-add input::-webkit-scrollbar{
     display: none;
@@ -473,6 +474,7 @@ section.elements{
     border-radius: 1rem;
     border: none;
     overflow-y: auto;
+    border: 2px solid black;
 }
 .task-add textarea::-webkit-scrollbar{
     display: none;
@@ -488,7 +490,7 @@ section.elements{
     padding-left: 3rem;
     height:87%;
     width:98.3%;
-    background-color: var(--y);
+    background-color: var(--x);
     color: var(--x);
     display: flex;
     flex-wrap: wrap;
@@ -517,7 +519,7 @@ section.elements{
 }
 .dailytasks .dailytask h4{
     font-family: bold;
-    color: var(--x);
+    color: var(--y);
     font-size: 1.2rem;
 }
 .motivationwindow{
@@ -606,6 +608,13 @@ section.elements{
 }
 .pomo .pomodorotimer:hover{
     box-shadow: 0 0 50px var(--y);
+    scale: 1.04;
+}
+.pomodorotimer h3{
+    color: var(--y);
+    font-family: bold;
+    font-size: 3rem;
+    margin-bottom: 2.5rem;
 }
 .pomodorotimer h1{
     font-family: bold;
@@ -627,11 +636,10 @@ section.elements{
     background-color: var(--x);
     color: var(--y);
     text-transform: uppercase;
-    transition: all 0.14s linear;
+    transition: all 0.2s linear;
 }
 .pomodorotimer .timer button:hover{
-    box-shadow: 0 0 30px var(--y),
-    inset 0 0 10px var(--y);
+    box-shadow: 0 0 30px var(--y);
 }
 .pomodorotimer .timer button:active{
     box-shadow: 0 0 50px var(--y);
