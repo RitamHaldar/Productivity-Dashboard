@@ -54,15 +54,17 @@ nav{
     color: var(--y);
     gap:25rem;
     font-family: bold;
-    box-shadow: 0 0 15px var(--y),
-    inset 0 0 8px var(--y)
-    ;
-    border-radius: 2rem;
+    transition: all 0.2s linear;
+    border-radius: 0 0 2.5rem 2.5rem;
     border: none;
+}
+nav:hover{
+    box-shadow: 0 0 15px var(--y);
 }
 nav h1{
     font-size: 1.7rem;
     margin-right: 4.5rem;
+    text-shadow: 0 0 15px var(--y);
 }
 nav button{
     font-size: 1.2rem;
@@ -250,6 +252,7 @@ section.elements{
 }
 .details .climate{
     margin-top: 3rem;
+    position: relative;
 }
 .climate h1{
     font-family: bold;
@@ -263,6 +266,40 @@ section.elements{
     font-family: light;
     font-size: 1rem;
     margin-top: 0.5rem;
+}
+.climate button {
+    margin-top: 1.5rem;
+    height: 1.8rem;
+    width: 8rem;
+    background: linear-gradient(#00c6ff, #0072ff);
+    font-size: 1.1rem;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s linear;
+    border-radius: 2rem;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+.climate button:hover{
+    box-shadow: 0 0 22px var(--y);
+    scale:1.05;
+}
+.climate input{
+    position: absolute;
+    bottom: -1.8%;
+    left:-185%;
+    font-size: 1.1rem;
+    padding: 0.3rem 0.6rem;
+    border: none;
+    border-radius: 2rem;
+    background: rgba(238, 239, 241, 0.6);
+    display: none;
+}
+#Submit{
+    display: none;
 }
 .to{
     scale: 0;

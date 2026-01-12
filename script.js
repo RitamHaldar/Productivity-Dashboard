@@ -1,5 +1,3 @@
-const city = prompt("Enter City Name");
-const cityname = city.split(" ").map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join("+");  
 function loadelems() {
         const elemnts = document.querySelectorAll(".element");
         const fullelemnts = document.querySelectorAll(".fullelems");
@@ -245,77 +243,110 @@ function dailygoal() {
         })
 }
 function setdatetime() {
-        function setinfo(){
-             const m = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-        let dateobj = new Date();
-        const setdate = document.querySelector(".detail h4");
-        const setday = document.querySelector(".detail h1");
-        const setplace = document.querySelector(".detail h3");
-        setdate.innerHTML = `${dateobj.getDate()} ${m[dateobj.getMonth()]} ${dateobj.getFullYear()}`
-        setday.innerHTML = `${days[dateobj.getDay()]}, ${String(dateobj.getHours() % 12).padStart(2, "0")}:${String(dateobj.getMinutes()).padStart(2, "0")}:${String(dateobj.getSeconds()).padStart(2, "0")} ${dateobj.getHours() > 12 ? "PM" : "AM"}`;
-        setplace.innerHTML=`${city.split(" ").map(word => word.charAt(0).toUpperCase()+word.slice(1).toLowerCase()) .join(" ")}`
+        function setinfo() {
+                const m = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+                const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+                let dateobj = new Date();
+                const setdate = document.querySelector(".detail h4");
+                const setday = document.querySelector(".detail h1");
+                setdate.innerHTML = `${dateobj.getDate()} ${m[dateobj.getMonth()]} ${dateobj.getFullYear()}`
+                setday.innerHTML = `${days[dateobj.getDay()]}, ${String(dateobj.getHours() % 12).padStart(2, "0")}:${String(dateobj.getMinutes()).padStart(2, "0")}:${String(dateobj.getSeconds()).padStart(2, "0")} ${dateobj.getHours() > 12 ? "PM" : "AM"}`;
         }
-        setInterval(setinfo,1000);
+        setInterval(setinfo, 1000);
 }
 function setclimate() {
         const t = document.querySelector(".climate h1");
         const w = document.querySelector(".climate h4");
         const p = document.querySelector(".climate p");
-        async function gatedata() {
-                let info = await fetch(`https://wttr.in/${cityname}?format=j1`);
+        const climate=JSON.parse(localStorage.getItem("climate"));
+        if (climate) {
+                t.innerHTML = `${climate[0]}°C`;
+                w.innerHTML = `${climate[1]}`;
+                p.innerHTML = `Precipitation: ${climate[2]} % <br>
+                        Humidity: ${climate[3]} % <br>
+                        Wind: ${climate[4]} km/h`;
+        }
+}
+function changeTheme() {
+        const changetheme = document.querySelector("nav button");
+        let darkmode = true;
+        const wheatherimg = document.querySelector(".weather img")
+        const todoimg = document.querySelector(".to-do img");
+        const dailyplanerimg = document.querySelector(".daily-planer img");
+        const motivationimg = document.querySelector(".motivation img");
+        const timerimg = document.querySelector(".pomodoro img");
+        const dailygoalsimg = document.querySelector(".daily-goals img");
+        changetheme.innerHTML = `${darkmode ? '<i class="fa-regular fa-moon"></i>' : '<i class="fa-regular fa-sun"></i>'}`
+        changetheme.addEventListener("click", () => {
+                if (darkmode) {
+                        document.body.style.setProperty("--x", "white");
+                        document.body.style.setProperty("--y", "black");
+                        darkmode = false;
+                        changetheme.innerHTML = `${darkmode ? '<i class="fa-regular fa-moon"></i>' : '<i class="fa-regular fa-sun"></i>'}`
+                        todoimg.src = './images/to-do2.jpg';
+                        wheatherimg.src = './images/whether2.jpg';
+                        dailyplanerimg.src = './images/dailyplaner1.jpg';
+                        motivationimg.src = './images/motivation2.jpg';
+                        timerimg.src = './images/timer2.jpg';
+                        dailygoalsimg.src = './images/dailygoal1.jpg';
+
+                }
+                else {
+                        document.body.style.setProperty("--y", "white");
+                        document.body.style.setProperty("--x", "black");
+                        darkmode = true;
+                        changetheme.innerHTML = `${darkmode ? '<i class="fa-regular fa-moon"></i>' : '<i class="fa-regular fa-sun"></i>'}`;
+                        todoimg.src = './images/to-do1.jpg';
+                        wheatherimg.src = './images/whether1.jpg'
+                        dailyplanerimg.src = './images/dailyplaner2.jpg';
+                        motivationimg.src = './images/motivation1.jpg';
+                        timerimg.src = './images/timer1.jpg';
+                        dailygoalsimg.src = './images/dailygoal2.jpg';
+                }
+        })
+}
+function changecity() {
+        const citychangeinp = document.querySelector(".changecity input");
+        const citychangebtn = document.querySelector(".changecity #Changecitybtn");
+        const submitbtn = document.querySelector(".changecity #Submit");
+        const setplace = document.querySelector(".detail h3");
+        async function getedata(name) {
+                let info = await fetch(`https://wttr.in/${name}?format=j1`);
                 let data = await info.json();
                 const current = data.current_condition[0];
-                t.innerHTML = `${current.temp_C}°C`;
-                w.innerHTML = `${current.weatherDesc[0].value}`;
-                p.innerHTML = `Precipitation: ${current.precipMM} % <br>
-                        Humidity: ${current.humidity} % <br>
-                        Wind: ${current.windspeedKmph} km/h`
+                let detail = {};
+                detail[0] = current.temp_C;
+                detail[1] = current.weatherDesc[0].value;
+                detail[2] = current.precipMM;
+                detail[3] = current.humidity;
+                detail[4] = current.windspeedKmph;
+                localStorage.setItem("climate", JSON.stringify(detail));
         }
-        gatedata();
+        citychangebtn.addEventListener("click", () => {
+                citychangebtn.style.display = "none";
+                citychangeinp.style.display = "block";
+                submitbtn.style.display = "block"
+        })
+        submitbtn.addEventListener("click", async () => {
+                citychangebtn.style.display = "block";
+                citychangeinp.style.display = "none";
+                submitbtn.style.display = "none";
+                const city = citychangeinp.value;
+                setplace.innerHTML = `${city.split(" ").map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(" ")}`;
+                await getedata(city);
+                setclimate();
+        })
 }
-managetasks();
-loadelems();
-dailytasks();
-motivationquote();
-pomodorotimer();
-dailygoal();
-setdatetime();
-setclimate();
-
-const changetheme=document.querySelector("nav button");
-let darkmode=true;
-const wheatherimg=document.querySelector(".weather img")
-const todoimg=document.querySelector(".to-do img");
-const dailyplanerimg=document.querySelector(".daily-planer img");
-const motivationimg=document.querySelector(".motivation img");
-const timerimg=document.querySelector(".pomodoro img");
-const dailygoalsimg=document.querySelector(".daily-goals img");
-changetheme.innerHTML=`${darkmode? '<i class="fa-regular fa-moon"></i>':'<i class="fa-regular fa-sun"></i>'}`
-changetheme.addEventListener("click",()=>{
-        if (darkmode) {
-                document.body.style.setProperty("--x", "white");
-                document.body.style.setProperty("--y", "black");
-                darkmode=false;
-                changetheme.innerHTML=`${darkmode? '<i class="fa-regular fa-moon"></i>':'<i class="fa-regular fa-sun"></i>'}`
-                todoimg.src='./images/to-do2.jpg';
-                wheatherimg.src='./images/whether2.jpg';
-                dailyplanerimg.src='./images/dailyplaner1.jpg';
-                motivationimg.src='./images/motivation2.jpg';
-                timerimg.src='./images/timer2.jpg';
-                dailygoalsimg.src='./images/dailygoal1.jpg';
-
-        }
-        else{
-                document.body.style.setProperty("--y", "white");
-                document.body.style.setProperty("--x", "black");
-                darkmode=true;
-                changetheme.innerHTML=`${darkmode? '<i class="fa-regular fa-moon"></i>':'<i class="fa-regular fa-sun"></i>'}`;
-                todoimg.src='./images/to-do1.jpg';
-                wheatherimg.src='./images/whether1.jpg'
-                dailyplanerimg.src='./images/dailyplaner2.jpg';
-                motivationimg.src='./images/motivation1.jpg';
-                timerimg.src='./images/timer1.jpg';
-                dailygoalsimg.src='./images/dailygoal2.jpg';
-        }
-})
+function callallfunc() {
+        managetasks();
+        loadelems();
+        dailytasks();
+        motivationquote();
+        pomodorotimer();
+        dailygoal();
+        setdatetime();
+        setclimate();
+        changeTheme();
+        changecity()
+}
+callallfunc();
