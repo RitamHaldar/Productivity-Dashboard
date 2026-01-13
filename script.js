@@ -253,7 +253,7 @@ function setdatetime() {
                 const setdate = document.querySelector(".detail h4");
                 const setday = document.querySelector(".detail h1");
                 setdate.innerHTML = `${dateobj.getDate()} ${m[dateobj.getMonth()]} ${dateobj.getFullYear()}`
-                setday.innerHTML = `${days[dateobj.getDay()]}, ${String(dateobj.getHours() % 12).padStart(2, "0")}:${String(dateobj.getMinutes()).padStart(2, "0")}:${String(dateobj.getSeconds()).padStart(2, "0")} ${dateobj.getHours() > 12 ? "PM" : "AM"}`;
+                setday.innerHTML = `${days[dateobj.getDay()]}, ${String(dateobj.getHours() % 12).padStart(2, "0")}:${String(dateobj.getMinutes()).padStart(2, "0")}:${String(dateobj.getSeconds()).padStart(2, "0")} ${dateobj.getHours() > 12 ? "AM" : "PM"}`;
         }
         setInterval(setinfo, 1000);
 }
